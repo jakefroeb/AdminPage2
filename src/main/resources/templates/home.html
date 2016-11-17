@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+{{^user}}
+<form action="/login"method="post">
+    <input type="text" placeholder="Email Address" name="email"/>
+    <input type="password" placeholder="Password" name="password"/>
+    <button type="submit">Login</button>
+</form>
+{{/user}}
+{{#user}}
+welcome {{name}}
+<form action="/users" method="post">
+    <button type="submit">Show All Users</button>
+</form>
+<form action="/reviews" method="post">
+    <button type="submit">Show All Reviews</button>
+</form>
+{{/user}}
+<ul>
+{{#users}}
+    USER:
+    <li>
+    {{name}},{{email}},{{id}}
+        <br>
+        <form action="/delete-user" method="post">
+            <input type="hidden" value="{{id}}" name="id"/>
+            <button type="submit">delete</button>
+        </form>
+        <br>
+
+    </li>
+{{/users}}
+</ul>
+<ul>
+    {{#reviews}}
+    REVIEW:
+    <li>
+        {{text}},{{rating}},{{user.name}},{{venueId}},{{approved}},{{id}}
+        <br>
+        <form action="/delete-review" method="post">
+            <input type="hidden" value="{{id}}" name="id"/>
+            <button type="submit">delete</button>
+        </form>
+        <br>
+        <form action="/approve-review" method="post">
+            <input type="hidden" value="{{id}}" name="id"/>
+            <button type="submit">approve review</button>
+        </form>
+    </li>
+    {{/reviews}}
+</ul>
+</body>
+</html>
